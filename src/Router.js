@@ -38,7 +38,7 @@ const RouterComponent = () => {
                         title="All Events"
                         rightTitle="Add Event"
                         onRight={() => Actions.addEventForm()}
-                        // initial
+                        initial
                         />
                     <Scene
                         key="addEventForm"

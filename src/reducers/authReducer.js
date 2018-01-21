@@ -37,7 +37,7 @@ const loginUserSuccess = (dispatch, user) => {
         type: LOGIN_USER_SUCCESS,
         user
     })
-    Actions.profilePage();
+    Actions.eventList();
 }
 
 const loginUserFail = (dispatch, user) => {
