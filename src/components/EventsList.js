@@ -52,6 +52,7 @@ export class EventList extends Component {
                     value={this.state.searchTerm}
                     onChangeText={this.handleSearchChange}
                 /> */}
+                <Text style={{ alignSelf: 'center', fontSize: 18, fontWeight: 'bold', paddingTop: 10 }}>{'Welcome ' + firebase.auth().currentUser.email}</Text>
                 <ListView 
                     enableEmptySections
                     dataSource={this.dataSource}

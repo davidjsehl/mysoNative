@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { ScrollView, Text, Image } from 'react-native';
+import { ScrollView, View, Text, Image } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
+import relativeDate from 'relative-date'
+import firebase from 'firebase';
 
 
 class MessagesList extends Component  {
@@ -9,14 +11,35 @@ class MessagesList extends Component  {
 
         this.renderMessage = this.renderMessage.bind(this)
     }
-        // const isCurrentUser = firebaseService.auth().currentUser.uid == this.props.message.user.id;
     renderMessage() {
         return this.props.data.map(message => {
-            console.log('messaggeeeTypee', message.type)
+            const isCurrentUser = firebase.auth().currentUser.uid == message.user.id;
+            const alignItems = isCurrentUser ? 'flex-end' : 'flex-start'
+            const margin = isCurrentUser ? { marginLeft: 140 } : { marginRight: 140 }
+            const date = relativeDate(new Date(message.createdAt))
+            const username = message.user.email
             if (message.type === 'text') {
-                return <Text key={message.createdAt}>{message.text}</Text>
+                return (
+                    <View key={message.createdAt} style={styles.container}>
+                        <View style={[styles.bubbleView, {alignItems: alignItems}, margin]}>
+                            <Text>{date}</Text>
+                            <Text>{username}</Text>
+                            <Text style={styles.messageText}>
+                                {message.text}
+                            </Text>
+                        </View>   
+                    </View>
+                )
             } else {
-                return <Image style={{ width: 80, height: 80 }} key={message.createdAt} source={{ uri: message.url }} />
+                return (
+                    <View key={message.createdAt} style={styles.container}>
+                        <View style={[styles.bubbleView, { alignItems: alignItems }, margin]}>
+                            <Text >{date}</Text>
+                            <Text >{username}</Text>
+                            <Image style={[{ alignItems: alignItems, width: 80, height: 80 }, margin]} source={{ uri: message.url }} />
+                        </View>
+                    </View>
+                )
             }
         })
     }
@@ -61,7 +84,6 @@ const styles = {
         fontSize: 16
     }
 }
-
 
 
 export default MessagesList;
