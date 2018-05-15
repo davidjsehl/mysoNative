@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, ListView } from 'react-native';
 import { Card, CardSection } from './common';
-// import { SearchBar } from 'react-native-elements';
+import { SearchBar } from 'react-native-elements';
 import EventListItem from './EventListItem';
 import { getEventsThunk } from '../reducers/eventReducer';
 import firebase from 'firebase';
@@ -12,10 +12,11 @@ export class EventList extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            searchTerm: ''
+            searchTerm: '',
         }
         this.handleSearchChange = this.handleSearchChange.bind(this);
     }
+    
 
     componentWillMount() {
         this.props.getEventsThunk();
@@ -45,14 +46,14 @@ export class EventList extends Component {
     render() {
         return (
             <View>
-                {/* <SearchBar
+                <Text style={{ alignSelf: 'center', fontSize: 18, fontWeight: 'bold', paddingTop: 10, paddingBottom: 10 }}>{'Welcome ' + firebase.auth().currentUser.email}</Text>
+                <SearchBar
                     placeholder='Type Here...'  
                     placeholderTextColor="white"
                     inputStyle={{ color: "white" }}
                     value={this.state.searchTerm}
                     onChangeText={this.handleSearchChange}
-                /> */}
-                <Text style={{ alignSelf: 'center', fontSize: 18, fontWeight: 'bold', paddingTop: 10 }}>{'Welcome ' + firebase.auth().currentUser.email}</Text>
+                /> 
                 <ListView 
                     enableEmptySections
                     dataSource={this.dataSource}
@@ -68,7 +69,6 @@ const mapStateToProps = (state) => {
         events: state.events
     }
 }
-
 
 const EventListContainer = connect(mapStateToProps, { getEventsThunk })(EventList);
 export default EventListContainer;

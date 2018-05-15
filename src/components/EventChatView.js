@@ -24,13 +24,6 @@ class EventChatView extends Component {
                 behavior='padding'
                 keyboardVerticalOffset={64}
                 >   
-                {/* <GiftedChat
-                    messages={data}
-                    onSend={messages => this.onSend(messages)}
-                    user={{
-                        _id: 1,
-                    }}
-                /> */}
                 <MessagesList data={data} />
                 <MessageForm event={this.props.event} />
             </KeyboardAvoidingView>

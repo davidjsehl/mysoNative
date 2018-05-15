@@ -56,7 +56,6 @@ export class LoginForm extends Component {
                         <StatusBar barStyle="light-content" />
                         <TextInput style={styles.input}
                             autoCapitalize="none"
-                            // onSubmitEditing={() => this.passwordInput.focus()}
                             autoCorrect={false}
                             keyboardType='email-address'
                             returnKeyType="next"
@@ -66,7 +65,6 @@ export class LoginForm extends Component {
                             onChangeText={this.onEmailChange.bind(this)} />
 
                         <TextInput style={styles.input}
-                            // returnKeyType="go" ref={(input) => this.passwordInput = input}
                             placeholder='Password'
                             placeholderTextColor='rgba(225,225,225,0.7)'
                             value={this.props.password}
@@ -83,7 +81,6 @@ export class LoginForm extends Component {
     }
 }
 
-// define your styles
 const styles = {
     screenContainer: {
         flex: 1,
@@ -135,45 +132,6 @@ const styles = {
         alignSelf: 'center'
     }
 }
-
-//     render() {
-//         return (
-//             <Card>
-//                 <CardSection>
-//                     <InputField
-//                         label='Email'
-//                         placeholder='user@gmail.com'
-//                         value={this.props.email}
-//                         onChangeText={this.onEmailChange.bind(this)}
-//                     />
-//                 </CardSection>
-//                 <CardSection>
-//                     <InputField
-//                         label='Password'
-//                         placeholder='Password'
-//                         secureTextEntry
-                        // value={this.props.password}
-//                         onChangeText={this.onPasswordChange.bind(this)}
-//                     />
-//                 </CardSection>
-
-//                 {this.renderError()}
-
-//                 <CardSection>
-//                     {this.renderButton()}
-//                 </CardSection>
-//             </Card>
-//         )
-//     }
-// }
-
-// const styles = {
-//     errorTextStyle: {
-//         color: 'red',
-//         fontSize: 20,
-//         alignSelf: 'center'
-//     }
-// }
 
 const mapStateToProps = ({ auth }) => {
     const { email, password, error, loading } = auth;

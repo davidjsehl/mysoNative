@@ -27,7 +27,6 @@ export class MessageForm extends Component {
 
     _pickImage () {
         showImagePicker((response) => {
-            console.log('responseeeee', response)
             if(!response.didCancel) {
                 this.props.uploadImageThunk(response.uri, this.props.event.id)
             }

@@ -9,6 +9,7 @@ class SingleEvent extends Component {
         return (
             <ScrollView>
                 <Card>
+                    
                     <CardSection>
                         <View style={styles.thumbnailContainer}>
                             <Image style={styles.thumbnailStyle}
@@ -33,6 +34,12 @@ class SingleEvent extends Component {
                             {description}
                         </Text>
                     </CardSection>
+                    
+                    <CardSection>
+                        <Button onPress={() => Actions.eventChatView({ event: this.props.event })}>
+                            Chat
+                        </Button>
+                    </CardSection>
 
                     <CardSection>
                         <Button>
@@ -40,11 +47,6 @@ class SingleEvent extends Component {
                         </Button>
                     </CardSection>
 
-                    <CardSection>
-                        <Button onPress={() => Actions.eventChatView({ event: this.props.event })}>
-                            Chat
-                        </Button>
-                    </CardSection>
                 </Card>
             </ScrollView>
         )

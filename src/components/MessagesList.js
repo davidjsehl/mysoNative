@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text, Image } from 'react-native';
-import { GiftedChat } from 'react-native-gifted-chat';
 import relativeDate from 'relative-date'
 import firebase from 'firebase';
 
@@ -15,7 +14,7 @@ class MessagesList extends Component  {
         return this.props.data.map(message => {
             const isCurrentUser = firebase.auth().currentUser.uid == message.user.id;
             const alignItems = isCurrentUser ? 'flex-end' : 'flex-start'
-            const margin = isCurrentUser ? { marginLeft: 140 } : { marginRight: 140 }
+            const margin = isCurrentUser ? { marginLeft: 150 } : { marginRight: 150 }
             const date = relativeDate(new Date(message.createdAt))
             const username = message.user.email
             if (message.type === 'text') {
@@ -36,7 +35,7 @@ class MessagesList extends Component  {
                         <View style={[styles.bubbleView, { alignItems: alignItems }, margin]}>
                             <Text >{date}</Text>
                             <Text >{username}</Text>
-                            <Image style={[{ alignItems: alignItems, width: 80, height: 80 }, margin]} source={{ uri: message.url }} />
+                            <Image style={[{ alignItems: alignItems, width: 120, height: 90 }, margin]} source={{ uri: message.url }} />
                         </View>
                     </View>
                 )
@@ -50,10 +49,6 @@ class MessagesList extends Component  {
             <ScrollView>
                {this.renderMessage()}
             </ScrollView>
-            // <GiftedChat
-            //     messages={this.state.messages}
-            //     onSend={messages => this.onSend(messages)}
-            // />
         )
     }
 }

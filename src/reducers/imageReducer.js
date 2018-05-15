@@ -35,26 +35,25 @@ export const uploadImageThunk = (uri, eventId, mime = 'application/octet-stream'
             const imageRef = firebase.storage().ref('images').child(`${eventId}/${sessionId}`)
     
             fs.readFile(uploadUri, 'base64')
-                .then((data) => {
-                    return Blob.build(data, { type: `${mime};BASE64` })
-                })
-                .then((blob) => {
-                    uploadBlob = blob
-                    return imageRef.put(blob, { contentType: mime })
-                })
-                .then(() => {
-                    uploadBlob.close()
-                    return imageRef.getDownloadURL()
-                })
-                .then((url) => {
-                    resolve(url)
-                    // console.log('urllllll', url)
-                    dispatch({ type: UPLOAD_IMAGE_SUCCESS })
-                    storeReference(url, eventId, sessionId)
-                })
-                .catch((error) => {
-                    reject(error)
-                })
+            .then((data) => {
+                return Blob.build(data, { type: `${mime};BASE64` })
+            })
+            .then((blob) => {
+                uploadBlob = blob
+                return imageRef.put(blob, { contentType: mime })
+            })
+            .then(() => {
+                uploadBlob.close()
+                return imageRef.getDownloadURL()
+            })
+            .then((url) => {
+                resolve(url)
+                dispatch({ type: UPLOAD_IMAGE_SUCCESS })
+                storeReference(url, eventId, sessionId)
+            })
+            .catch((error) => {
+                reject(error)
+            })
         })
     }
 }
