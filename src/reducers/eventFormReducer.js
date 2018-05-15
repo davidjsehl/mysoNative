@@ -40,51 +40,6 @@ export const addEventThunk = (event) => {
     }
 }
 
-export const uploadEventThumbnail = () => {
-    return (dispatch) => {
-        return new Promise((resolve, reject) => {
-            const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri
-            const sessionId = new Date().getTime()
-            let uploadBlob = null
-            const imageRef = firebase.storage().ref('images').child(`${eventId}/thumbnails/${sessionId}`)
-
-            fs.readFile(uploadUri, 'base64')
-                .then((data) => {
-                    return Blob.build(data, { type: `${mime};BASE64` })
-                })
-                .then((blob) => {
-                    uploadBlob = blob
-                    return imageRef.put(blob, { contentType: mime })
-                })
-                .then(() => {
-                    uploadBlob.close()
-                    return imageRef.getDownloadURL()
-                })
-                .then((url) => {
-                    resolve(url)
-                    // console.log('urllllll', url)
-                    dispatch({ type: UPLOAD_THUMBNAIL_SUCCESS, url })
-                    storeReference(url, eventId, sessionId)
-                })
-                .catch((error) => {
-                    reject(error)
-                })
-        })
-    }
-}
-
-const storeTumbnailReference = (downloadUrl, eventId, sessionId) => {
-    let imageRef = firebase.storage().ref('images').child(`${eventId}/thumbnails/${sessionId}`)
-    let currentUser = firebase.auth().currentUser
-    let image = {
-        name: imageRef.name,
-        url: downloadUrl,
-        createdAt: sessionId
-    }
-    firebase.database().ref(`/events/${eventId}/thumbnails`)
-        .push(image);
-}
-
 
 export default (state = initialState, action) => {
     switch (action.type) {
@@ -101,5 +56,3 @@ export default (state = initialState, action) => {
     }
 }
 
-// case UPLOAD_THUMBNAIL_SUCCESS:
-// return { ...state, thumbnail: action.url }

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Scene, Router, Actions } from 'react-native-router-flux';
+import { Icon } from 'react-native-elements';
+import { TabNavigator, StackNavigator } from 'react-navigation';
 import LoginForm from './components/LoginForm';
 import EventList from './components/EventsList';
 import AddEventForm from './components/AddEventForm';
@@ -17,21 +19,13 @@ const RouterComponent = () => {
                         component={LoginForm}
                         hideNavBar={true}
                         tabBarStyle={styles.tabBarStyle}
-                        // title="Please Log In"
                         initial
                         />
 
                 </Scene>
                 
 
-                <Scene >
-                    {/* <Scene key="profilePage"
-                        tabs={true}
-                        hideNavBar={true}
-                        component={ProfilePage}
-                        initial
-                    
-                        /> */}
+                <Scene key="main">
                     <Scene
                         key="eventList"
                         component={EventList}
@@ -53,7 +47,7 @@ const RouterComponent = () => {
                     <Scene
                         key="eventChatView"
                         component={EventChatView}
-                        title="Single Court"
+                        title="Chat"
                         />
                 </Scene>
             </Scene>
